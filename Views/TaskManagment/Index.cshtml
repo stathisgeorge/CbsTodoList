@@ -1,0 +1,73 @@
+﻿@model List<DataAccess.Data.Models.TaskRecord>
+
+@{
+    // Check if the model has any elements
+    if (Model.Count == 0)
+    {
+        // If the model is empty, display a message
+        <h1>Δεν υπάρχουν εγγραφές</h1>
+    }
+    else
+    {
+        // If the model has elements, display the tasks in two separate sections
+        // First section
+        <section id="tasks1">
+            <h2>Completed Tasks</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">CreatedAt</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Take(Model.Count / 2))
+                    {
+                        <tr class="table-success">
+                            <th scope="row">@Model.IndexOf(item)</th>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>@item.CreatedAt</td>
+                            <td>@item.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </section>
+
+        // Second section
+        <section id="tasks2">
+            <h2>Uncompleted Tasks</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">CreatedAt</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Skip(Model.Count / 2))
+                    {
+                        <tr class="table-warning">
+                            <th scope="row">@Model.IndexOf(item)</th>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>@item.CreatedAt</td>
+                            <td>@item.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </section>
+    }
+}

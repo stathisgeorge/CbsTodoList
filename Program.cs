@@ -1,4 +1,4 @@
-using DataAccess.Data;
+﻿using DataAccess.Data;
 using DataAccess.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +13,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login"; // Ορίζει τη διαδρομή για το login page
+});
+
 builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
 
 builder.Services.AddControllersWithViews();
@@ -39,7 +44,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=TaskManagment}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

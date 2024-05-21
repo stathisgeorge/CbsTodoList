@@ -1,0 +1,28 @@
+﻿@model List<DataAccess.Data.Models.TaskRecord>
+
+<table class="table">
+    <caption>List of tasks</caption>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">CreatedAt</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach(var task in Model)
+            {
+                <th scope="row">@Model.IndexOf(task)</th>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.CreatedAt</td>
+                <td>@task.Status</td>
+            }
+        </tr>
+       
+    </tbody>
+</table>

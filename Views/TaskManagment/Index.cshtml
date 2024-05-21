@@ -2,6 +2,8 @@
 
 @{
     // Check if the model has any elements
+    var tasksJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+
     if (Model.Count == 0)
     {
         // If the model is empty, display a message
@@ -9,65 +11,74 @@
     }
     else
     {
+        var completedTasks = Model.Where(t => t.Status == DataAccess.Data.Status.Completed).ToList();
+        var pendingTasks = Model.Where(t => t.Status == DataAccess.Data.Status.Pending).ToList();
         // If the model has elements, display the tasks in two separate sections
         // First section
-        <section id="tasks1">
-            <h2>Completed Tasks</h2>
+        <div class="container-fluid">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success btn-lg float-left" onclick="add()">Add Task</button>
+            </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">CreatedAt</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Take(Model.Count / 2))
-                    {
-                        <tr class="table-success">
-                            <th scope="row">@Model.IndexOf(item)</th>
-                            <td>@item.Title</td>
-                            <td>@item.Description</td>
-                            <td>@item.CreatedAt</td>
-                            <td>@item.Status</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            @if (pendingTasks != null)
+            {
+                @await Html.PartialAsync("_UncompletedTasksPartial",pendingTasks);
+            }
 
-        </section>
-
-        // Second section
-        <section id="tasks2">
-            <h2>Uncompleted Tasks</h2>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">CreatedAt</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Skip(Model.Count / 2))
-                    {
-                        <tr class="table-warning">
-                            <th scope="row">@Model.IndexOf(item)</th>
-                            <td>@item.Title</td>
-                            <td>@item.Description</td>
-                            <td>@item.CreatedAt</td>
-                            <td>@item.Status</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-        </section>
+            @if(completedTasks!=null){
+                @await Html.PartialAsync("_CompletedTasksPartial",completedTasks);
+            }
+        </div> 
     }
+}
+
+<div class="modal fade" id="taskModalForm" tabindex="-1" role="dialog" aria-labelledby="taskModalFormTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-Title">Modal title</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @await Html.PartialAsync("_AddTaskPartial")
+            </div>
+        </div>
+    </div>
+</div> 
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            // Initialize collapse functionality
+            $('.task-title').click(function () {
+                $(this).next('.collapse').collapse('toggle');
+            });
+            var tasksJson = @Html.Raw(Json.Serialize(tasksJson));
+
+            localStorage.setItem('tasks', tasksJson);
+
+        });
+
+        function completeStatus(taskId) {
+            console.log('CompleteStatus');
+            $.ajax({
+                type: "PUT",
+                url: "@Url.Action("ChangeTaskStatus", "TaskManagment")",
+                data: { id: taskId },
+                success: function (data) {
+                    console.log('success'); 
+                },
+                error: function (error) {
+                    console.log('error', error);
+                }
+            });
+        }
+
+    </script>
 }

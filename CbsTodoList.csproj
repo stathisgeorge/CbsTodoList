@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\tasks.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.18" />
@@ -21,6 +25,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\TaskManagment\js\" />
   </ItemGroup>
 
 </Project>

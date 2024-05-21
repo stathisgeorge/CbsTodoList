@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<DataAccess.Data.Models.TaskRecord>
+
+<section id="pendingTasks" class="task-section">
+    <h2 class="task-title" data-toggle="collapse" aria-expanded="true">Pending Tasks</h2>
+    <div class="collapse show" id="collapsePendingTasks">
+        <section id="tasks1">
+            <table class="table table-striped" style="text-align:center" width="100%" id="pendingTasksTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">CreatedAt</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">IsCompleted</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-warning">
+                            <th scope="row">@Model.IndexOf(item)</th>
+                            <td style="overflow: hidden; text-overflow: ellipsis; word-wrap:break-word;">@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>@item.CreatedAt</td>
+                            <td>@item.Status</td>
+                            <td>
+                                <input type="checkbox" class="form-check-input editStatusCheckbox" id="editStatusCheckbox_@(item.Id)" data-id="@item.Id" data-url="@Url.Action("ChangeTaskStatus", "TaskManagment")" @(item.IsCompleted ? "checked" : "")>
+                            </td>
+                            <td>
+                                <a asp-controller="TaskManagment" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <button class="btn btn-xs deleteBtn" data-id="@item.Id" data-url="@Url.Action("DeleteTask", "TaskManagment")">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <a asp-controller="TaskManagment" asp-action="ChangeTaskStatus" asp-route-id="@item.Id" class="btn btn-xs">
+                                    <i class="fa fa-check-square-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </section>
+    </div>
+</section>
+<script src="~/js/tasks.js"></script> 
+<script>
+
+    $('#pendingTasksTable').DataTable({});
+
+</script>
+

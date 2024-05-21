@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccess\**" />
+    <Content Remove="DataAccess\**" />
+    <EmbeddedResource Remove="DataAccess\**" />
+    <None Remove="DataAccess\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\tasks.js" />
   </ItemGroup>
 
@@ -24,11 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <Folder Include="Views\TaskManagment\js\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\TaskManagment\js\" />
+    <ProjectReference Include="DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

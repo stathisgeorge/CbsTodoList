@@ -25,7 +25,7 @@ A managment list for tasks
 * First of all register  a user 
 * Login to the system 
 * From TaskManagment view, you can Create, Delete, Edit a task 
-* Tasks are displayed in defferent sections: "Pending" and "Completed"
+* Tasks are displayed in different sections: "Pending" and "Completed"
 
 ## Authors
 Georgios Stathis

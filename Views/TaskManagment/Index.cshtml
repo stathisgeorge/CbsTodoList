@@ -5,13 +5,7 @@
     var successMessage = TempData["SuccessMessage"] as string;
     var errorMessage = TempData["ErrorMessage"] as string;
 
-    if (Model.Count == 0)
-    {
-        <h1>Δεν υπάρχουν εγγραφές</h1>
-    }
-    else
-    {
-        @if (!string.IsNullOrEmpty(successMessage))
+    @if (!string.IsNullOrEmpty(successMessage))
         {
             <div id="successMessage" class="alert alert-success">
                 @successMessage
@@ -41,7 +35,7 @@
             }
         </div> 
     }
-}
+
 
 <div class="modal fade" id="taskModalForm" tabindex="-1" role="dialog" aria-labelledby="taskModalFormTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

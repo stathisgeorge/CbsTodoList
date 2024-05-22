@@ -26,7 +26,8 @@ namespace CbsTodoList.Controllers
             }
             else
             {
-                tasks = await _taskService.GetAllTaskRecords();
+                var username = HttpContext.Session.GetString("UserData");
+                tasks = await _taskService.GetAllTaskRecords(username);
                 RefreshTasksToSession(tasks);
             }
             return View(tasks);
@@ -35,7 +36,8 @@ namespace CbsTodoList.Controllers
         [Authorize]
         public async Task<IActionResult> TasksList()
         {
-            var records = await _taskService.GetAllTaskRecords();
+            var username = HttpContext.Session.GetString("UserData");
+            var records = await _taskService.GetAllTaskRecords(username);
             return PartialView("_TaskListPartial", records);
         }
 
@@ -55,7 +57,7 @@ namespace CbsTodoList.Controllers
                 try
                 {
                     var newTask = TaskRecordVM.CreateTaskFromAddForm(task); 
-                    //newTask.Username = HttpContext.Session.GetString("UserData");
+                    newTask.Username = HttpContext.Session.GetString("UserData");
                     await _taskService.Add(newTask);
                     if (ExistsTasksInSession())
                     {

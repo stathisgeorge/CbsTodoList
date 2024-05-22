@@ -34,12 +34,12 @@ namespace DataAccess.Services
         /// Retrieve all task records from db
         /// </summary>
         /// <returns></returns>
-        public async Task<List<TaskRecord>> GetAllTaskRecords()
+        public async Task<List<TaskRecord>> GetAllTaskRecords(string username)
         {
             var records = new List<TaskRecord>();
             try
             {
-                return await _db.TaskRecord.OrderByDescending(t=>t.CreatedAt).ToListAsync();
+                return await _db.TaskRecord.Where(u=>u.Username==username).OrderByDescending(t=>t.CreatedAt).ToListAsync();
             }
             catch (Exception ex) { }
             return records;

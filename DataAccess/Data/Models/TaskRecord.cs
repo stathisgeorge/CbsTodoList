@@ -28,8 +28,8 @@ namespace DataAccess.Data.Models
         public DateTime? ModifiedAt { get; set;}
         [Column("Status")]
         public Status Status { get; set; }
-        //[Column("Username")]
-        //public string Username { get; set; }
+        [Column("Username")]
+        public string Username { get; set; }
 
         [NotMapped]
         public bool IsCompleted

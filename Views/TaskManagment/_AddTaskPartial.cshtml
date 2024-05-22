@@ -12,14 +12,20 @@
         <label for="Description">Description</label>
         <input type="text" class="form-control" id="exampleInputDescription" name="Description" placeholder="Description">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 </form>
 
 <script>
+    $(document).ready(function () {
+        var form = document.getElementById('addTaskForm');
+        form.addEventListener('submit', validateForm);
+        var modal = document.getElementById('taskModalForm');
+        modal.addEventListener('shown.bs.modal', clearForm);
+    });
+
     function validateForm(event) {
         event.preventDefault();
-
         var titleField = document.getElementById('Title');
         var errorMessage = document.getElementById('titleError');
 
@@ -29,13 +35,7 @@
             errorMessage.textContent = '';
             event.target.submit();
         }
-    } 
-    document.addEventListener('DOMContentLoaded', function () {
-        var form = document.getElementById('addTaskForm');
-        form.addEventListener('submit', validateForm);
-        var modal = document.getElementById('taskModalForm');
-        modal.addEventListener('shown.bs.modal', clearForm);
-    });
+    }
 
     function clearForm() {
         var form = document.getElementById('addTaskForm');

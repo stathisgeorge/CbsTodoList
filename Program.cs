@@ -33,8 +33,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
     options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 8;
     options.SignIn.RequireConfirmedEmail = false;
+    options.Password.RequireNonAlphanumeric = false;
 });
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

@@ -1,5 +1,8 @@
 ﻿ 
 
+
+ 
+
 $('.deleteBtn').click(function () {
     var taskId = $(this).data('id');
     var url = $(this).data('url');
@@ -10,8 +13,9 @@ $('.deleteBtn').click(function () {
             url: url,
             data: { id: taskId },
             success: function (data) {
-                console.log('success');
-                location.reload();
+                $('#successMessage').fadeIn().delay(3000).fadeOut();
+                window.location.href = data.redirectToUrl;
+
             },
             error: function (error) {
                 console.log('error', error);
@@ -33,9 +37,12 @@ $('.editStatusCheckbox').change(function () {
     console.log(url);
     $.ajax({
         type: "PUT",
-        url:url,
+        url: url,
         data: { id: taskId },
         success: function (data) {
+            if (data.redirectToUrl) {
+                window.location.href = data.redirectToUrl;
+            }
             console.log('success');
         },
         error: function (error) {
@@ -43,3 +50,4 @@ $('.editStatusCheckbox').change(function () {
         }
     });
 });
+ 

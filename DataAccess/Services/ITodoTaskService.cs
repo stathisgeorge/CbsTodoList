@@ -9,11 +9,11 @@ namespace DataAccess.Services
 {
     public interface ITodoTaskService
     {
-        Task Add(TaskRecord task);
+        Task<int> Add(TaskRecord task);
         Task<List<TaskRecord>> GetAllTaskRecords();
         Task<TaskRecord> GetTaskById(int id);
 
-        Task Delete(int taskId);
+        Task<int> Delete(int taskId);
         Task<bool> ChangeStatus(int taskId);
         Task Edit(TaskRecord taskId);
         Task<List<TaskRecord>> Search(SearchCriteria criteria);

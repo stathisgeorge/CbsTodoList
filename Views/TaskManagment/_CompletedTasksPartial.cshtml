@@ -11,7 +11,6 @@
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
                         <th scope="col">CreatedAt</th>
-                        <th scope="col">Status</th>
                         <th scope="col">IsCompleted</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -24,7 +23,6 @@
                             <td style="max-width:40px">@item.Title</td>
                             <td>@item.Description</td>
                             <td>@item.CreatedAt</td>
-                            <td>@item.Status</td>
                             <td>
                                 <input type="checkbox" class="form-check-input editStatusCheckbox" id="editStatusCheckbox_@(item.Id)" data-id="@item.Id" data-url="@Url.Action("ChangeTaskStatus", "TaskManagment")" @(item.IsCompleted ? "checked" : "")>
                             </td>
@@ -32,12 +30,9 @@
                                 <a asp-controller="TaskManagment" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <button class="btn btn-xs deleteBtn" data-id="@item.Id" data-url="@Url.Action("DeleteTask", "TaskManagment")">
+                                <button class="btn btn-xs deleteBtn" id="deleteBtbCompleted_@(item.Id)" data-id="@item.Id" data-url="@Url.Action("DeleteTask", "TaskManagment")">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <a asp-controller="TaskManagment" asp-action="ChangeTaskStatus" asp-route-id="@item.Id" class="btn btn-xs">
-                                    <i class="fa fa-check-square-o"></i>
-                                </a>
                             </td>
                         </tr>
                     }

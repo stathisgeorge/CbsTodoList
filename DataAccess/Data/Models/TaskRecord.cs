@@ -18,13 +18,18 @@ namespace DataAccess.Data.Models
         [Column("Description")]
         public string? Description { get; set; }
         [Column("CreatedAt")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedAt { get; set; }= DateTime.Now;
         [Column("CompletedAt")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? CompletedAt { get; set;} 
         [Column("ModifiedAt")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ModifiedAt { get; set;}
         [Column("Status")]
         public Status Status { get; set; }
+        //[Column("Username")]
+        //public string Username { get; set; }
 
         [NotMapped]
         public bool IsCompleted
@@ -32,6 +37,17 @@ namespace DataAccess.Data.Models
             get
             {
                 return Status == Status.Completed;
+            }
+        }
+
+        public int DaysFromCreatedDate
+        {
+            get
+            {
+                if (CompletedAt != null)
+                    return (CompletedAt - CreatedAt).GetValueOrDefault().Days;
+                else
+                    return (CompletedAt - DateTime.Now).GetValueOrDefault().Days;
             }
         }
     }

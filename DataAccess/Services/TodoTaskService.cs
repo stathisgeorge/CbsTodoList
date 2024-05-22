@@ -17,14 +17,17 @@ namespace DataAccess.Services
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        public async Task Add(TaskRecord task)
+        public async Task<int> Add(TaskRecord task)
         {
             try
             {
                 await _db.TaskRecord.AddAsync(task);
-                await _db.SaveChangesAsync();
+                return await _db.SaveChangesAsync();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                return -1;
+            }
+            
         }
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace DataAccess.Services
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public async Task Delete(int taskId)
+        public async Task<int> Delete(int taskId)
         {
             TaskRecord? task =await _db.TaskRecord.Where(t => t.Id == taskId).FirstOrDefaultAsync();
             if (task!=null)
@@ -69,10 +72,12 @@ namespace DataAccess.Services
                 try
                 {
                     _db.TaskRecord.Remove(task);
-                    await _db.SaveChangesAsync();
+                    return await _db.SaveChangesAsync();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) {
+                }
             }
+            return -1;
 
         }
         public async Task<bool> ChangeStatus(int taskId)

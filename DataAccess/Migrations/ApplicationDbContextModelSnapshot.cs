@@ -4,19 +4,16 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CbsTodoList.Data.Migrations
+namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240515103614_AddTaskRecordTable2")]
-    partial class AddTaskRecordTable2
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,28 +31,114 @@ namespace CbsTodoList.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CompletedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CompletedAt");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAt");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
 
                     b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifiedAt");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Title");
 
                     b.HasKey("Id");
 
                     b.ToTable("TaskRecord");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 5, 21, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9789),
+                            Description = "Description 1",
+                            Status = 0,
+                            Title = "Task 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2024, 5, 20, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9795),
+                            Description = "Description 2",
+                            Status = 1,
+                            Title = "Task 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2024, 5, 19, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9802),
+                            Description = "Description 3",
+                            Status = 1,
+                            Title = "Task 3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2024, 5, 18, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9808),
+                            Description = "Description 4",
+                            Status = 1,
+                            Title = "Task 4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2024, 5, 17, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9814),
+                            Description = "Description 5",
+                            Status = 1,
+                            Title = "Task 5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2024, 5, 16, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9819),
+                            Description = "Description 6",
+                            Status = 1,
+                            Title = "Task 6"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2024, 5, 15, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9824),
+                            Description = "Description 7",
+                            Status = 1,
+                            Title = "Task 7"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2024, 5, 14, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9830),
+                            Description = "Description 8",
+                            Status = 0,
+                            Title = "Task 8"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2024, 5, 13, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9835),
+                            Description = "Description 9",
+                            Status = 0,
+                            Title = "Task 9"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedAt = new DateTime(2024, 5, 12, 22, 26, 51, 160, DateTimeKind.Local).AddTicks(9841),
+                            Description = "Description 10",
+                            Status = 0,
+                            Title = "Task 10"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

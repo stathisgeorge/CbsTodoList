@@ -20,6 +20,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
 
+//https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-8.0
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".AdventureWorks.Session";
+    options.IdleTimeout = TimeSpan.FromSeconds(120);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
@@ -46,5 +56,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=TaskManagment}/{action=Index}/{id?}");
 app.MapRazorPages();
-
+app.UseSession();
 app.Run();

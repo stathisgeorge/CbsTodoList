@@ -11,5 +11,19 @@ namespace CbsTodoList.ViewModels
         [MinLength(8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Return the username from email 
+        /// </summary>
+        public string? Username
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.Email))
+                    return Email.Substring(0, Email.IndexOf("@"));
+                else
+                    return null;
+            }
+        }
     }
 }

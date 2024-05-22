@@ -1,6 +1,7 @@
 ﻿using CbsTodoList.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CbsTodoList.Controllers
 {
@@ -27,11 +28,11 @@ namespace CbsTodoList.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password,false,false);
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password,true,false);
                 if(result.Succeeded)
                 {
+                    HttpContext.Session.SetString("UserData", model.Username);
                     return RedirectToAction("Index","TaskManagment");
-
                 }
             }
             return View(model);
@@ -39,6 +40,7 @@ namespace CbsTodoList.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            HttpContext.Session.Clear();
             return RedirectToAction(nameof(AccountController.Login));
         }
         public IActionResult Register()

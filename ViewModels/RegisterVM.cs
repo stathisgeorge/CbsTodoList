@@ -4,8 +4,6 @@ namespace CbsTodoList.ViewModels
 {
     public class RegisterVM
     {
-        
-        public string Username { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
@@ -15,5 +13,16 @@ namespace CbsTodoList.ViewModels
         public string Password { get; set; }
         [Compare("Password", ErrorMessage ="Passwords don't match")]
         public string ConfirmPassword { get;set; }
+
+        public string? Username
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.Email))
+                    return Email.Substring(0, Email.IndexOf("@"));
+                else
+                    return null;
+            }
+        }
     }
 }

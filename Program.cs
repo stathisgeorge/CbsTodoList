@@ -29,7 +29,13 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.SignIn.RequireConfirmedEmail = false;
+});
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 

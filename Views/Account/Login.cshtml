@@ -21,8 +21,11 @@
                 <label class="form-label" for="Password">Password</label>
                 <input type="password" id="Password" class="form-control" 
                 asp-for="Password" autocomplete="off" />
-               
                 <span asp-validation-for="Password" class="text-danger"></span>
+                <div>
+                    <input type="checkbox" id="showPassword" />
+                    <label for="showPassword">Show Password</label>
+                </div>
             </div>
 
 
@@ -41,25 +44,22 @@
 
     </div>
 </div>
-
-
-
-
-
+ 
 @section Scripts{
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-      
-    }
-}
-<script>
 
-    $(document).ready(function () {
-        $('#togglePassword').click(function () {
-            let passwordInput = $('#Password');
-            let type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
-            passwordInput.attr('type', type);
-            $(this).toggleClass('fa-eye fa-eye-slash');
+    }
+    <script>
+        //Show password as text if the checkbox is checked
+        $('#showPassword').click(function () {
+            var password = document.getElementById('Password');
+
+            var type = (this.checked) ? 'text' : 'password';
+            password.setAttribute('type', type);
         });
-    });
-</script>
+
+    </script>
+}
+ 

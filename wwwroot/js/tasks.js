@@ -1,9 +1,4 @@
-﻿ 
-
-
- 
-
-$('.deleteBtn').click(function () {
+﻿$('.deleteBtn').click(function () {
     var taskId = $(this).data('id');
     var url = $(this).data('url');
 
